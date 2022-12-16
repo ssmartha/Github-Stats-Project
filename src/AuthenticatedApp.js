@@ -19,6 +19,7 @@ import {
 } from "react-router-dom";
 import { RiSearchFill } from "react-icons/ri";
 import { BsFillStarFill, BsPersonFill } from "react-icons/bs";
+import SearchPage from "./pages/search-page"
 
 function AuthenticatedApp() {
   // const { logout } = useAuth();
@@ -41,7 +42,7 @@ function AuthenticatedApp() {
   function Search() {
     return (
       <div>
-        <h1>Search Page</h1>
+        <SearchPage />
       </div>
     );
   }
