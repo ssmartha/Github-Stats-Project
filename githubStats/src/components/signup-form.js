@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Input from "./input";
 
-function SignupForm({ onSignup }) {
+// { onSignup }
+function SignupForm() {
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -10,25 +11,25 @@ function SignupForm({ onSignup }) {
   });
   const { email, password, first_name, last_name } = formData;
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setFormData({ ...formData, [name]: value });
-  }
+  // function handleChange(event) {
+  //   const { name, value } = event.target;
+  //   setFormData({ ...formData, [name]: value });
+  // }
 
-  function handleSubmit(event) {
-    event.preventDefault();
+  // function handleSubmit(event) {
+  //   event.preventDefault();
 
-    onSignup(formData);
-  }
+  //   onSignup(formData);
+  // }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <form>
         <Input
           name="email"
           type="email"
           value={email}
-          onChange={handleChange}
+          // onChange={handleChange}
           placeholder="example@mail.com"
           label="Email"
         />
@@ -36,7 +37,7 @@ function SignupForm({ onSignup }) {
           name="password"
           type="password"
           value={password}
-          onChange={handleChange}
+          // onChange={handleChange}
           placeholder="*******"
           label="Password"
         />
@@ -44,14 +45,14 @@ function SignupForm({ onSignup }) {
           name="first_name"
           type="first_name"
           value={first_name}
-          onChange={handleChange}
+          // onChange={handleChange}
           label="First Name"
         />
         <Input
           name="last_name"
           type="last_name"
           value={last_name}
-          onChange={handleChange}
+          // onChange={handleChange}
           label="Last Name"
         />
         <button type="submit">Create Account</button>

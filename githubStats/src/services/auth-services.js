@@ -9,3 +9,12 @@ export async function login(credentials) {
   sessionStorage.setItem(tokenKey, token);
   return user;
 }
+
+export async function logout() {
+  await collectionClient("/logout", {
+    method: "DELETE",
+  });
+
+  sessionStorage.removeItem(tokenKey);
+}
+
