@@ -55,6 +55,17 @@ function AuthenticatedApp() {
     );
   }
 
+  function Followers() {
+
+    
+
+    return (
+      <div>
+        <h1>Followers Page</h1>
+      </div>
+    );
+  }
+
   return (
     <div>
       <BrowserRouter>
@@ -62,6 +73,7 @@ function AuthenticatedApp() {
           <Route index element={<Search />} />
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/profile" element={<Profile />} />
+          <Route path="/followers" element={<Followers />} />
           <Route path="*" element={<Search />} />
         </Routes>
         <Footer />

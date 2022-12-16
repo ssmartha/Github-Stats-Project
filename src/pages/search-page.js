@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Input } from "../components/input";
 import { getUserData } from "../services/github-api";
 import SearchState from "../components/search-state"
+import { Link } from "react-router-dom"
 // import PokemonData from "../components/";
 
 function SearchPage() {
@@ -41,7 +42,7 @@ function SearchPage() {
           type="query"
           value={query}
           onChange={(event) => setQuery(event.target.value)}
-          placeholder="example@mail.com"
+          placeholder="username"
           label="Search"
         />
         <button type="submit">Search</button>
@@ -60,6 +61,7 @@ function SearchPage() {
             <img src={user.avatar_url} alt={user.name} />
             {user.name}
             <br />
+            <Link to="/followers"> Followers </Link>
           </div>
         )}
         {status === "error" && <SearchState message={error}/>}
