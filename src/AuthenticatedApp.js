@@ -56,12 +56,33 @@ function AuthenticatedApp() {
   }
 
   function Followers() {
-
-    
-
     return (
       <div>
         <h1>Followers Page</h1>
+      </div>
+    );
+  }
+
+  function Followings() {
+    return (
+      <div>
+        <h1>Followings Page</h1>
+      </div>
+    );
+  }
+
+  function Public_repos() {
+    return (
+      <div>
+        <h1>Public repos Page</h1>
+      </div>
+    );
+  }
+
+  function Public_gists() {
+    return (
+      <div>
+        <h1>Public gists Page</h1>
       </div>
     );
   }
@@ -74,6 +95,9 @@ function AuthenticatedApp() {
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/followers" element={<Followers />} />
+          <Route path="/followings" element={<Followings />} />
+          <Route path="/public_repos" element={<Public_repos />} />
+          <Route path="/public_gists" element={<Public_gists />} />
           <Route path="*" element={<Search />} />
         </Routes>
         <Footer />

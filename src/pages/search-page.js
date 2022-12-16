@@ -1,9 +1,12 @@
 import { useState } from "react";
-
+import styled from "@emotion/styled";
 import { Input } from "../components/input";
 import { getUserData } from "../services/github-api";
-import SearchState from "../components/search-state"
-import { Link } from "react-router-dom"
+import SearchState from "../components/search-state";
+import { Link } from "react-router-dom";
+import {HiUserGroup} from "react-icons/hi";
+import {RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill} from "react-icons/ri";
+
 // import PokemonData from "../components/";
 
 function SearchPage() {
@@ -34,35 +37,71 @@ function SearchPage() {
       });
   }
 
+  const UserDataConteiner = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  `;
+
+  const UserDataGridConteiner = styled.div`
+    margin-top: 16px;
+    display: grid;
+    grid-template: repeat(2, 140px) / repeat(2, 140px);
+    width: 296px;
+    height: 296px;
+  `;
+
   return (
-    <div>
-      <form onSubmit={handleSubmit}>
-        <Input
-          name="query"
-          type="query"
-          value={query}
-          onChange={(event) => setQuery(event.target.value)}
-          placeholder="username"
-          label="Search"
-        />
-        <button type="submit">Search</button>
-      </form>
-      <div>
+    <div style={{display: "flex", justifyContent: "center", alignItems: "center",}}>
+      <div style={{width: "411px", height: "731px", display: "flex", flexDirection: "column", alignItems: "center"}}>
+        <form onSubmit={handleSubmit} style={{marginTop: "32px",}}>
+          <Input
+            name="query"
+            type="query"
+            value={query}
+            onChange={(event) => setQuery(event.target.value)}
+            placeholder="username"
+          />
+        </form>
         {status === "pending" && <SearchState message={"Retrieving user..."}/>}
         {status === "idle" && <SearchState message={"Ready to search"}/>}
         {status === "success" && (
-          <div>
-            {user.name}
-            <br />
-            Followers: {user.followers}
-            <br />
-            Repositories: {user.public_repos}
-            <br />
-            <img src={user.avatar_url} alt={user.name} />
-            {user.name}
-            <br />
-            <Link to="/followers"> Followers </Link>
-          </div>
+          <UserDataConteiner>
+            <div>
+              <img src={user.avatar_url} alt={user.name} style={{width: "120px", height: "120px", borderRadius: "50%", marginTop: "32px",}}/>
+              <p style={{marginTop: "12px",}}>{user.name}</p>
+            </div>
+            <UserDataGridConteiner>
+              <Link to="/followers">
+                <UserDataConteiner>
+                  <HiUserGroup style={{width:"50px", height:"50px", color: "#F2994A",}}/>
+                  <p>{user.followers}</p>
+                  <p>Followers</p>
+                </UserDataConteiner>
+              </Link>
+              <Link to="/followings">
+                <UserDataConteiner>
+                  <RiUserHeartFill style={{width:"50px", height:"50px", color: "#2D9CDB",}}/>
+                  <p>{user.following}</p>
+                  <p>Followings</p>
+                </UserDataConteiner>
+              </Link>
+              <Link to="/public_repos">  
+                <UserDataConteiner>
+                  <RiBookMarkFill style={{width:"50px", height:"50px", color: "#219653",}}/>
+                  <p>{user.public_repos}</p>
+                  <p>public repos</p>
+                </UserDataConteiner>
+              </Link>  
+              <Link to="/public_gists">  
+                <UserDataConteiner>
+                  <RiCodeBoxFill style={{width:"50px", height:"50px", color: "#828282",}}/>
+                  <p>{user.public_gists}</p>
+                  <p>public gists</p>
+                </UserDataConteiner>
+              </Link>  
+            </UserDataGridConteiner>
+          </UserDataConteiner>
         )}
         {status === "error" && <SearchState message={error}/>}
       </div>
