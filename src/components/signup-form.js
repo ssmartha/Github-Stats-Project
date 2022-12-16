@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Input from "./input";
+import { Input, StyledButton, StyledForm } from "./input";
 
 // { onSignup }
 function SignupForm() {
@@ -24,7 +24,7 @@ function SignupForm() {
 
   return (
     <div>
-      <form>
+      <StyledForm>
         <Input
           name="email"
           type="email"
@@ -55,8 +55,8 @@ function SignupForm() {
           // onChange={handleChange}
           label="Last Name"
         />
-        <button type="submit">Create Account</button>
-      </form>
+        <StyledButton type="submit">Create Account</StyledButton>
+      </StyledForm>
     </div>
   );
 }

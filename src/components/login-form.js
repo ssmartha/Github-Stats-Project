@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useAuth } from "../context/auth-context";
-import Input from "./input";
+import { Input, StyledButton, StyledForm } from "./input";
 
 function LoginForm() {
   const { login } = useAuth();
@@ -23,7 +23,7 @@ function LoginForm() {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
+      <StyledForm onSubmit={handleSubmit}>
         <Input
           name="email"
           type="email"
@@ -40,8 +40,8 @@ function LoginForm() {
           placeholder="*******"
           label="Password"
         />
-        <button type="submit">Login</button>
-      </form>
+        <StyledButton type="submit">Login</StyledButton>
+      </StyledForm>
     </div>
   );
 }
