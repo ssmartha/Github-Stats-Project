@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { Input } from "../components/input";
 import { getUserData } from "../services/github-api";
+import SearchState from "../components/search-state"
 // import PokemonData from "../components/";
 
 function SearchPage() {
@@ -20,7 +21,7 @@ function SearchPage() {
 
     getUserData(query)
       .then((data) => {
-        if (data.message === "Not Found") throw new Error("El user no existe! Intenta de nuevo");
+        if (data.message === "Not Found") throw new Error("No users...");
         setState({ status: "success", data: data, error: null });
       })
       .catch((error) => {
@@ -46,8 +47,8 @@ function SearchPage() {
         <button type="submit">Search</button>
       </form>
       <div>
-        {status === "pending" && "Loading..."}
-        {status === "idle" && "Ready to search"}
+        {status === "pending" && <SearchState message={"Retrieving user..."}/>}
+        {status === "idle" && <SearchState message={"Ready to search"}/>}
         {status === "success" && (
           <div>
             {user.name}
@@ -61,7 +62,7 @@ function SearchPage() {
             <br />
           </div>
         )}
-        {status === "error" && <p style={{ color: "red" }}>{error}</p>}
+        {status === "error" && <SearchState message={error}/>}
       </div>
     </div>
   );
