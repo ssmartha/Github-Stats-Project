@@ -13,6 +13,7 @@ export function getFollowersData(user) {
 }
 
 export function getFollowingsData(user) {
+  console.log(user);
   return fetch(BASE_URI + user + "/following").then((response) =>
     response.json()
   );
@@ -25,6 +26,7 @@ export function getPublicReposData(user) {
 }
 
 export function getPublicGistsData(user) {
+  console.log(user);
   return fetch(BASE_URI + user + "/gists").then((response) =>
     response.json()
   );

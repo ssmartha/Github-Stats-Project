@@ -7,6 +7,7 @@ const AuthContext = createContext();
 
 function AuthProvider(props) {
   const [user, setUser] = useState(null);
+  const [userFound, setUserFound] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [currentPage, setCurrentPage] = useState("");
 
@@ -38,6 +39,8 @@ function AuthProvider(props) {
     setFavorites,
     currentPage,
     setCurrentPage,
+    userFound,
+    setUserFound,
     login,
     logout,
     signup,

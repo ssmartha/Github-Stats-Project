@@ -10,8 +10,9 @@ import { BsStar, BsStarFill } from "react-icons/bs";
 import { createFavorite, removeFavorite } from "../services/favorites-service";
 import { useAuth } from "../context/auth-context";
 
-function SearchPage({ query, setQuery }) {
-  const { favorites, setCurrentPage } = useAuth();
+function SearchPage() {
+  const { favorites, setCurrentPage, userFound, setUserFound } = useAuth();
+  const [query, setQuery] = useState("");
   const [iconClickedStatus, setIconClickedStatus] = useState("");
   const [state, setState] = useState({
     status: "idle", // success - error - pending
@@ -37,10 +38,10 @@ function SearchPage({ query, setQuery }) {
       .then((data) => {
         if (data.message === "Not Found") throw new Error("No users...");
         setState({ status: "success", data: data, error: null });
-        console.log(data);
-        console.log(favorites);
         console.log((findIdFromUserInFavorites(favorites, data) === "Not found"));
         findIdFromUserInFavorites(favorites, data) === "Not found" ? setIconClickedStatus(false) : setIconClickedStatus(true)
+        console.log("data",data);
+        console.log("state",state);
       })
       .catch((error) => {
         setState({
@@ -49,6 +50,16 @@ function SearchPage({ query, setQuery }) {
           error: error.message,
         });
       });
+    console.log("antes del setting");
+    settingUser(user);
+    console.log("despues del setting");
+  }
+
+  function settingUser(user) {
+    let dataArr = Object.values(user)
+    let userName = dataArr[0];
+    setUserFound(userName);
+    console.log("setting USEEEEEEEEEEEEEEEEEEEER",userFound);
   }
 
   function userDataToFavorites(user) {

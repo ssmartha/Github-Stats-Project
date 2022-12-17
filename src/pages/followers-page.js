@@ -1,15 +1,17 @@
 import { useState, useEffect } from "react";
 import { getFollowersData } from "../services/github-api";
 import UserCard from "../components/user-card";
+import { useAuth } from "../context/auth-context";
 // import styled from "@emotion/styled";
 
 // const StyledGithubUser = styled("div")``;
 
-export function FollowersPage({ query }){
+export function FollowersPage() {
+  const { userFound } = useAuth();
   const [followers, setFollowers] = useState([]);
 
   useEffect(() => {
-    getFollowersData(query)
+    getFollowersData(userFound)
     .then((data) => {
     setFollowers([...data])
   })

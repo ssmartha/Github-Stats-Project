@@ -1,14 +1,13 @@
 import { useState, useEffect } from "react";
-import { getFollowingsData } from "../services/github-api"
-// import styled from "@emotion/styled";
+import { getFollowingsData } from "../services/github-api";
+import { useAuth } from "../context/auth-context";
 
-// const StyledGithubUser = styled("div")``;
-
-export function FollowingsPage({ query }){
+export function FollowingsPage() {
+  const { userFound } = useAuth();
   const [followings, setFollowings] = useState([]);
 
   useEffect(() => {
-    getFollowingsData(query)
+    getFollowingsData(userFound)
     .then((data) => {
     setFollowings([...data])
   })
