@@ -25,6 +25,7 @@ import { FollowersPage } from "./pages/followers-page"
 import { FollowingsPage } from "./pages/followings-page";
 import { PublicReposPage } from "./pages/public-repos-page";
 import { PublicGistsPage } from "./pages/public-gists-page";
+import ProfilePage from "./pages/profile-page";
 
 function AuthenticatedApp() {
   const [query, setQuery] = useState("");
@@ -40,7 +41,7 @@ function AuthenticatedApp() {
   function Profile() {
     return (
       <div>
-        <h1>Profile Page</h1>
+        <ProfilePage />
       </div>
     );
   }
