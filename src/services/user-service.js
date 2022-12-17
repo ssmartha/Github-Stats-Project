@@ -15,3 +15,20 @@ export async function getUser() {
 
   return user;
 }
+
+export async function show() {
+  const { token, id , ...user } = await collectionClient("/profile");
+  
+  return user;
+}
+
+
+export async function update(updateData) {
+  const { token, id ,...user } = await collectionClient("/profile", {
+    body: updateData,
+    method: "PATCH",
+  });
+
+  console.log(user)
+  return user;
+}
