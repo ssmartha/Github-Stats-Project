@@ -28,7 +28,7 @@ function UserCard({
   name="undefined",
   icon = "undefined",
 }) {
-  console.log(id, img, user,name,icon)
+  // console.log(id, img, user,name,icon)
 
   return (
     <div>
@@ -45,12 +45,3 @@ function UserCard({
 }
 
 export default UserCard;
-
-// export default function UserCard({ message }) {
-//   return (
-//   <div>
-//     <FaGithub style={{width: "120px", height: "120px"}}/>
-//     <p>{message}</p>
-//   </div>
-//   )
-// }

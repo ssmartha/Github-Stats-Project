@@ -12,7 +12,7 @@ function FavoritePage() {
     getFavorites().then((data) => {
       setFavorites([...data])
     }).catch(console.log);
-  }, []);
+  }, [favorites]);
 
   useEffect(() => {
     console.log("favorites hereeeeeeeeeeeeeeeeeeeee");

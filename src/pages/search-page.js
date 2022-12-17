@@ -6,15 +6,14 @@ import SearchState from "../components/search-state";
 import { Link } from "react-router-dom";
 import {HiUserGroup} from "react-icons/hi";
 import { RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill } from "react-icons/ri";
-import { BsStar } from "react-icons/bs"
+import { BsStar } from "react-icons/bs";
+import { createFavorite, removeFavorite } from "../services/favorites-service";
 
 // import PokemonData from "../components/";
 
 // function SearchPage() {
 function SearchPage({ query, setQuery }) {
-  // const [query, setQuery] = useState("");
-  // console.log(setQuery)
-
+  const[iconClickedStatus, setIconClickedStatus]=useState(false);
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
@@ -39,6 +38,26 @@ function SearchPage({ query, setQuery }) {
           error: error.message,
         });
       });
+  }
+
+  function addToFavorites(userData) {
+    createFavorite(userData).then(console.log).catch(console.log);
+  }
+
+  function deleteFromFavorites(userId) {
+    removeFavorite(userId).then(console.log
+    ).catch(console.log);
+  }
+
+  function handleIconClick(event, userId, userData) {
+    event.preventDefault();
+    console.log("hi icon click");
+    console.log("userId", userId);
+    console.log("oldIconClickStatus",iconClickedStatus)
+    setIconClickedStatus(!iconClickedStatus);
+    console.log("newStatus",iconClickedStatus);
+    iconClickedStatus ? console.log("icon clicked") : console.log("icon not clicked!");
+    iconClickedStatus? addToFavorites(userData): deleteFromFavorites(userId);
   }
 
   const UserDataContainer = styled.div`
@@ -82,7 +101,7 @@ function SearchPage({ query, setQuery }) {
               <img src={user.avatar_url} alt={user.name} style={{ width: "120px", height: "120px", borderRadius: "50%", marginTop: "32px", }} />
               <UserNameContainer>
                 <p >{user.name}</p>
-                <BsStar/>
+                <p onClick={(event)=>handleIconClick(event, user.id, user)}><BsStar /></p>
               </UserNameContainer>
             <UserDataGridContainer>
 
