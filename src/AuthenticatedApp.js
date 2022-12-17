@@ -22,6 +22,9 @@ import { RiSearchFill } from "react-icons/ri";
 import { BsFillStarFill, BsPersonFill } from "react-icons/bs";
 import SearchPage from "./pages/search-page"
 import { FollowersPage } from "./pages/followers-page"
+import { FollowingsPage } from "./pages/followings-page";
+import { PublicReposPage } from "./pages/public-repos-page";
+import { PublicGistsPage } from "./pages/public-gists-page";
 
 function AuthenticatedApp() {
   const [query, setQuery] = useState("");
@@ -70,7 +73,7 @@ function AuthenticatedApp() {
   function Followings() {
     return (
       <div>
-        <h1>Followings Page</h1>
+        <FollowingsPage query={query} />
       </div>
     );
   }
@@ -78,7 +81,7 @@ function AuthenticatedApp() {
   function Public_repos() {
     return (
       <div>
-        <h1>Public repos Page</h1>
+        <PublicReposPage query={query} />
       </div>
     );
   }
@@ -86,7 +89,7 @@ function AuthenticatedApp() {
   function Public_gists() {
     return (
       <div>
-        <h1>Public gists Page</h1>
+        <PublicGistsPage query={query} />
       </div>
     );
   }
