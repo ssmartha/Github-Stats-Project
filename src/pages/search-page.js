@@ -10,13 +10,9 @@ import { BsStar } from "react-icons/bs";
 import { createFavorite, removeFavorite } from "../services/favorites-service";
 import { useAuth } from "../context/auth-context";
 
-// import PokemonData from "../components/";
-
-// function SearchPage() {
 function SearchPage({ query, setQuery }) {
   const { favorites, setCurrentPage } = useAuth();
   const [iconClickedStatus, setIconClickedStatus] = useState(false);
-  // const[newFavoriteUsername, SetNewFavoriteUsername]=useState("");
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
@@ -24,19 +20,16 @@ function SearchPage({ query, setQuery }) {
   });
 
   setCurrentPage("SearchPage");
-  console.log(favorites);
   const { status, data: user, error } = state;
 
   function findIdFromUserInFavorites(favorites, user) {
     const userInFavorites = favorites.filter((fav) => fav.username === user.login);
-    console.log("id uwu",userInFavorites[0]["id"])
-    const idFromUserInFavorites = userInFavorites[0]["id"]
+    const idFromUserInFavorites = !userInFavorites[0] ? "Not found" : userInFavorites[0]["id"];
     return idFromUserInFavorites
   }
 
   function handleSubmit(event) {
     event.preventDefault();
-    // onSetUserFound(query);
     setState({ status: "pending", data: null, error: null });
 
     getUserData(query)
@@ -51,9 +44,15 @@ function SearchPage({ query, setQuery }) {
           error: error.message,
         });
       });
-    // console.log(user);
-    // console.log(favorites);
-    // findIdFromUserInFavorites(favorites, user);
+  }
+
+  function userDataToFavorites(user) {
+    const { name, avatar_url, login: username, ...other } = user;
+    return ({
+      name: name,
+      avatar_url: avatar_url,
+      username: username,
+    })
   }
 
   function addToFavorites(userData) {
@@ -67,15 +66,10 @@ function SearchPage({ query, setQuery }) {
 
   function handleIconClick(event, favorites, user) {
     event.preventDefault();
-    console.log("hi icon click");
-    console.log("oldIconClickStatus",iconClickedStatus)
     setIconClickedStatus(!iconClickedStatus);
-    console.log("newStatus", iconClickedStatus);
-    let userId= findIdFromUserInFavorites(favorites, user)
-    console.log("userId", userId);
-    iconClickedStatus ? console.log("icon clicked") : console.log("icon not clicked!");
-    iconClickedStatus ? console.log("icon clicked") : deleteFromFavorites(userId);
-    // addToFavorites(userData);
+    let userId = findIdFromUserInFavorites(favorites, user);
+    let userData = userDataToFavorites(user);
+    iconClickedStatus ? addToFavorites(userData) : deleteFromFavorites(userId);
   }
 
   const UserDataContainer = styled.div`
