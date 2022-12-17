@@ -22,7 +22,7 @@ const StyledAvatar = styled("img")`
 
 
 function UserCard({
-  id,
+  key,
   img,
   user,
   name="undefined",
@@ -32,10 +32,10 @@ function UserCard({
 
   return (
     <div>
-      <StyledUserCard key={id}>
+      <StyledUserCard key={key}>
         <StyledAvatar src={img}/>
           <div>
-            <p key={id}>{user}</p>
+            <p key={key}>{user}</p>
             {name !== "undefined" && <p>{name}</p>}
           </div>
           {icon !== "undefined" && <p style={{marginLeft: "auto"}} > <BsFillStarFill/></p>}

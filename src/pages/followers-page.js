@@ -25,7 +25,7 @@ export function FollowersPage({ query }){
     {/* barrita de paginas */}
 
       {followers.map((user) => (
-        <UserCard id={user.id} img={ user.avatar_url } user={user.login} />
+        <UserCard key={user.id} img={ user.avatar_url } user={user.login} />
       ))}
   </div>
   )

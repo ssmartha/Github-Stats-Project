@@ -1,29 +1,16 @@
-// import styled from "@emotion/styled";
-import { useEffect, useState } from "react";
-import { getFavorites } from "../services/favorites-service";
 import UserCard from "../components/user-card";
-
+import { useAuth } from "../context/auth-context";
 
 
 function FavoritePage() {
-  const [favorites, setFavorites] = useState([]);
-
-  useEffect(() => {
-    getFavorites().then((data) => {
-      setFavorites([...data])
-    }).catch(console.log);
-  }, [favorites]);
-
-  useEffect(() => {
-    console.log("favorites hereeeeeeeeeeeeeeeeeeeee");
-    console.log(favorites);
-  }, [favorites]);
+  const { favorites, setCurrentPage } = useAuth();
+  setCurrentPage("FavoritePage");
 
   return (
     <div style={{display: "flex", flexDirection: "column", gap: "16px", alignItems: "center"}}>
       <h1>Favorites ({favorites.length})</h1>
       {favorites.map((fav) => (
-        <UserCard id={fav.id} img={ fav.avatar_url } user={fav.username} name={fav.name} icon="defined"/>
+        <UserCard key={fav.id} img={ fav.avatar_url } user={fav.username} name={fav.name} icon="defined"/>
       ))}
     </div>
   );

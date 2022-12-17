@@ -8,18 +8,30 @@ import {HiUserGroup} from "react-icons/hi";
 import { RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill } from "react-icons/ri";
 import { BsStar } from "react-icons/bs";
 import { createFavorite, removeFavorite } from "../services/favorites-service";
+import { useAuth } from "../context/auth-context";
 
 // import PokemonData from "../components/";
 
 // function SearchPage() {
 function SearchPage({ query, setQuery }) {
-  const[iconClickedStatus, setIconClickedStatus]=useState(false);
+  const { favorites, setCurrentPage } = useAuth();
+  const [iconClickedStatus, setIconClickedStatus] = useState(false);
+  const[newFavoriteUsername, SetNewFavoriteUsername]=useState("");
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
     error: null,
   });
+
+  setCurrentPage("SearchPage");
   const { status, data: user, error } = state;
+  console.log(favorites);
+
+  function findUserInFavorites(favorites, user) {
+    console.log(favorites);
+    console.log(user);
+    // const favoriteUser = STORE.notes.filter((note) => !note.deleted);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -38,6 +50,8 @@ function SearchPage({ query, setQuery }) {
           error: error.message,
         });
       });
+    console.log(user);
+    findUserInFavorites(favorites, user);
   }
 
   function addToFavorites(userData) {
