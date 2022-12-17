@@ -20,8 +20,10 @@ import {
 } from "react-router-dom";
 import { RiSearchFill } from "react-icons/ri";
 import { BsFillStarFill, BsPersonFill } from "react-icons/bs";
-import SearchPage from "./pages/search-page"
-import { FollowersPage } from "./pages/followers-page"
+import SearchPage from "./pages/search-page";
+import { FollowersPage } from "./pages/followers-page";
+import FavoritePage from "./pages/favorites-page";
+
 
 function AuthenticatedApp() {
   const [query, setQuery] = useState("");
@@ -53,7 +55,7 @@ function AuthenticatedApp() {
   function Favorite() {
     return (
       <div>
-        <h1>Favorite Page</h1>
+        <FavoritePage/>
       </div>
     );
   }

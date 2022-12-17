@@ -1,11 +1,6 @@
 import styled from "@emotion/styled";
-import { Link } from "react-router-dom";
-
-const typeColors = {
-  grass: "#74CB48",
-  electric: "#F9CF30",
-  fire: "#F57D31",
-};
+import { useEffect, useState } from "react";
+import { getFavorites } from "../services/favorites-service";
 
 const Wrapper = styled("div")`
   display: flex;
@@ -13,19 +8,28 @@ const Wrapper = styled("div")`
   gap: 1rem;
 `;
 
-const PokeCard = styled("div")`
-  border: 2px solid ${({ type }) => typeColors[type]};
+const FavoriteUserCard = styled("div")`
+  background-color: red;
 `;
 
-function FavoritePage({ favorites }) {
+function FavoritePage() {
+  const [favorites, setFavorites] = useState("");
+
+  useEffect(() => {
+    getFavorites().then(setFavorites).catch(console.log);
+  }, []);
+
+  useEffect(() => {
+    console.log(favorites);
+  }, [favorites]);
+
   return (
     <Wrapper>
       {favorites.map((fav, index) => (
-        <PokeCard type={fav.pokemon_type} key={`pok${index}`}>
-          {fav.pokemon_name}
-        </PokeCard>
+        <FavoriteUserCard key={`${index}`}>
+          {fav.name}
+        </FavoriteUserCard>
       ))}
-      <Link to="/">Go back to search</Link>
     </Wrapper>
   );
 }
