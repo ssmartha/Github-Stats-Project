@@ -3,12 +3,14 @@ import { colors } from "../styles";
 
 const StyledInput = styled("input")`
   border: none;
+  text-align: center;
   width: 213px;
   height: 28px;
   background: #FFFFFF;
   box-shadow: 2px 2px 0px rgba(0, 0, 0, 0.25);
   border-radius: 4px;
   ::placeholder {
+    text-align: center;
     color: ${colors.gray.light};
   }
 `;

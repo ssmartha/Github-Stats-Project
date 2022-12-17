@@ -9,8 +9,10 @@ import {RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill} from "react-icons/ri";
 
 // import PokemonData from "../components/";
 
-function SearchPage() {
-  const [query, setQuery] = useState("");
+// function SearchPage() {
+function SearchPage({ query, setQuery }) {
+  // const [query, setQuery] = useState("");
+  // console.log(setQuery)
 
   const [state, setState] = useState({
     status: "idle", // success - error - pending
@@ -21,6 +23,7 @@ function SearchPage() {
 
   function handleSubmit(event) {
     event.preventDefault();
+    // onSetUserFound(query);
     setState({ status: "pending", data: null, error: null });
 
     getUserData(query)
@@ -72,6 +75,8 @@ function SearchPage() {
               <p style={{marginTop: "12px",}}>{user.name}</p>
             </div>
             <UserDataGridConteiner>
+
+
               <Link to="/followers">
                 <UserDataConteiner>
                   <HiUserGroup style={{width:"50px", height:"50px", color: "#F2994A",}}/>
@@ -79,6 +84,8 @@ function SearchPage() {
                   <p>Followers</p>
                 </UserDataConteiner>
               </Link>
+
+
               <Link to="/followings">
                 <UserDataConteiner>
                   <RiUserHeartFill style={{width:"50px", height:"50px", color: "#2D9CDB",}}/>

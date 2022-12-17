@@ -5,3 +5,9 @@ export function getUserData(query) {
     response.json()
   );
 }
+
+export function getFollowersData(user) {
+  return fetch(BASE_URI + user + "/followers").then((response) =>
+    response.json()
+  );
+}

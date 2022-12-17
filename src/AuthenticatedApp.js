@@ -9,6 +9,7 @@
 //   getFavorites,
 //   removeFavorite,
 // } from "./services/favorites-service";
+import { useState } from "react";
 import React from "react";
 import {
   BrowserRouter, // Para declarar rutas => el padre de todas las rutas
@@ -20,8 +21,10 @@ import {
 import { RiSearchFill } from "react-icons/ri";
 import { BsFillStarFill, BsPersonFill } from "react-icons/bs";
 import SearchPage from "./pages/search-page"
+import { FollowersPage } from "./pages/followers-page"
 
 function AuthenticatedApp() {
+  const [query, setQuery] = useState("");
   // const { logout } = useAuth();
   const Footer = () => (
   <nav>
@@ -42,7 +45,7 @@ function AuthenticatedApp() {
   function Search() {
     return (
       <div>
-        <SearchPage />
+        <SearchPage query={query} setQuery={setQuery}/>
       </div>
     );
   }
@@ -55,10 +58,11 @@ function AuthenticatedApp() {
     );
   }
 
-  function Followers() {
+  function Followers({ query }) {
+    console.log(query)
     return (
       <div>
-        <h1>Followers Page</h1>
+        <FollowersPage query={query} />
       </div>
     );
   }
@@ -94,7 +98,7 @@ function AuthenticatedApp() {
           <Route index element={<Search />} />
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/followers" element={<Followers />} />
+          <Route path="/followers" element={<Followers query={query} />} />
           <Route path="/followings" element={<Followings />} />
           <Route path="/public_repos" element={<Public_repos />} />
           <Route path="/public_gists" element={<Public_gists />} />
