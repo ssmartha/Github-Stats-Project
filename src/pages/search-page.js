@@ -16,7 +16,7 @@ import { useAuth } from "../context/auth-context";
 function SearchPage({ query, setQuery }) {
   const { favorites, setCurrentPage } = useAuth();
   const [iconClickedStatus, setIconClickedStatus] = useState(false);
-  const[newFavoriteUsername, SetNewFavoriteUsername]=useState("");
+  // const[newFavoriteUsername, SetNewFavoriteUsername]=useState("");
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
@@ -24,13 +24,14 @@ function SearchPage({ query, setQuery }) {
   });
 
   setCurrentPage("SearchPage");
-  const { status, data: user, error } = state;
   console.log(favorites);
+  const { status, data: user, error } = state;
 
-  function findUserInFavorites(favorites, user) {
-    console.log(favorites);
-    console.log(user);
-    // const favoriteUser = STORE.notes.filter((note) => !note.deleted);
+  function findIdFromUserInFavorites(favorites, user) {
+    const userInFavorites = favorites.filter((fav) => fav.username === user.login);
+    console.log("id uwu",userInFavorites[0]["id"])
+    const idFromUserInFavorites = userInFavorites[0]["id"]
+    return idFromUserInFavorites
   }
 
   function handleSubmit(event) {
@@ -50,8 +51,9 @@ function SearchPage({ query, setQuery }) {
           error: error.message,
         });
       });
-    console.log(user);
-    findUserInFavorites(favorites, user);
+    // console.log(user);
+    // console.log(favorites);
+    // findIdFromUserInFavorites(favorites, user);
   }
 
   function addToFavorites(userData) {
@@ -63,15 +65,17 @@ function SearchPage({ query, setQuery }) {
     ).catch(console.log);
   }
 
-  function handleIconClick(event, userId, userData) {
+  function handleIconClick(event, favorites, user) {
     event.preventDefault();
     console.log("hi icon click");
-    console.log("userId", userId);
     console.log("oldIconClickStatus",iconClickedStatus)
     setIconClickedStatus(!iconClickedStatus);
-    console.log("newStatus",iconClickedStatus);
+    console.log("newStatus", iconClickedStatus);
+    let userId= findIdFromUserInFavorites(favorites, user)
+    console.log("userId", userId);
     iconClickedStatus ? console.log("icon clicked") : console.log("icon not clicked!");
-    iconClickedStatus? addToFavorites(userData): deleteFromFavorites(userId);
+    iconClickedStatus ? console.log("icon clicked") : deleteFromFavorites(userId);
+    // addToFavorites(userData);
   }
 
   const UserDataContainer = styled.div`
@@ -115,7 +119,7 @@ function SearchPage({ query, setQuery }) {
               <img src={user.avatar_url} alt={user.name} style={{ width: "120px", height: "120px", borderRadius: "50%", marginTop: "32px", }} />
               <UserNameContainer>
                 <p >{user.name}</p>
-                <p onClick={(event)=>handleIconClick(event, user.id, user)}><BsStar /></p>
+                <p onClick={(event)=>handleIconClick(event, favorites, user)}><BsStar /></p>
               </UserNameContainer>
             <UserDataGridContainer>
 
