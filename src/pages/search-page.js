@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import styled from "@emotion/styled";
 import { Input } from "../components/input";
 import { getUserData } from "../services/github-api";
@@ -6,13 +6,13 @@ import SearchState from "../components/search-state";
 import { Link } from "react-router-dom";
 import {HiUserGroup} from "react-icons/hi";
 import { RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill } from "react-icons/ri";
-import { BsStar } from "react-icons/bs";
+import { BsStar, BsStarFill } from "react-icons/bs";
 import { createFavorite, removeFavorite } from "../services/favorites-service";
 import { useAuth } from "../context/auth-context";
 
 function SearchPage({ query, setQuery }) {
   const { favorites, setCurrentPage } = useAuth();
-  const [iconClickedStatus, setIconClickedStatus] = useState(false);
+  const [iconClickedStatus, setIconClickedStatus] = useState("");
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
@@ -28,6 +28,7 @@ function SearchPage({ query, setQuery }) {
     return idFromUserInFavorites
   }
 
+
   function handleSubmit(event) {
     event.preventDefault();
     setState({ status: "pending", data: null, error: null });
@@ -36,6 +37,10 @@ function SearchPage({ query, setQuery }) {
       .then((data) => {
         if (data.message === "Not Found") throw new Error("No users...");
         setState({ status: "success", data: data, error: null });
+        console.log(data);
+        console.log(favorites);
+        console.log((findIdFromUserInFavorites(favorites, data) === "Not found"));
+        findIdFromUserInFavorites(favorites, data) === "Not found" ? setIconClickedStatus(false) : setIconClickedStatus(true)
       })
       .catch((error) => {
         setState({
@@ -113,10 +118,11 @@ function SearchPage({ query, setQuery }) {
               <img src={user.avatar_url} alt={user.name} style={{ width: "120px", height: "120px", borderRadius: "50%", marginTop: "32px", }} />
               <UserNameContainer>
                 <p >{user.name}</p>
-                <p onClick={(event)=>handleIconClick(event, favorites, user)}><BsStar /></p>
+                <p onClick={(event) => handleIconClick(event, favorites, user)}>
+                  {iconClickedStatus ? <BsStarFill style={{color: "#F2C94C"}}/> : <BsStar />}
+                </p>
               </UserNameContainer>
             <UserDataGridContainer>
-
               <Link to="/followers">
                 <UserDataContainer>
                   <HiUserGroup style={{width:"50px", height:"50px", color: "#F2994A",}}/>
@@ -124,8 +130,6 @@ function SearchPage({ query, setQuery }) {
                   <p>Followers</p>
                 </UserDataContainer>
               </Link>
-
-
               <Link to="/followings">
                 <UserDataContainer>
                   <RiUserHeartFill style={{width:"50px", height:"50px", color: "#2D9CDB",}}/>
