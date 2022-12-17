@@ -1,36 +1,31 @@
-import styled from "@emotion/styled";
+// import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
 import { getFavorites } from "../services/favorites-service";
+import UserCard from "../components/user-card";
 
-const Wrapper = styled("div")`
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-`;
 
-const FavoriteUserCard = styled("div")`
-  background-color: red;
-`;
 
 function FavoritePage() {
-  const [favorites, setFavorites] = useState("");
+  const [favorites, setFavorites] = useState([]);
 
   useEffect(() => {
-    getFavorites().then(setFavorites).catch(console.log);
+    getFavorites().then((data) => {
+      setFavorites([...data])
+    }).catch(console.log);
   }, []);
 
   useEffect(() => {
+    console.log("favorites hereeeeeeeeeeeeeeeeeeeee");
     console.log(favorites);
   }, [favorites]);
 
   return (
-    <Wrapper>
-      {favorites.map((fav, index) => (
-        <FavoriteUserCard key={`${index}`}>
-          {fav.name}
-        </FavoriteUserCard>
+    <div style={{display: "flex", flexDirection: "column", gap: "16px", alignItems: "center"}}>
+      <h1>Favorites ({favorites.length})</h1>
+      {favorites.map((fav) => (
+        <UserCard id={fav.id} img={ fav.avatar_url } user={fav.username} name={fav.name} icon="defined"/>
       ))}
-    </Wrapper>
+    </div>
   );
 }
 
