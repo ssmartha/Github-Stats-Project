@@ -30,10 +30,10 @@ function AuthenticatedApp() {
   const [query, setQuery] = useState("");
   // const { logout } = useAuth();
   const Footer = () => (
-  <nav>
-    <Link to="/profile">  {<BsPersonFill/>} </Link>
-    <Link to="/search"> {<RiSearchFill/>} </Link>
-    <Link to="/favorite"> {<BsFillStarFill/>} </Link>
+  <nav style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-around", background: "#F2F2F2", boxShadow: "0px -2px 0px rgba(0, 0, 0, 0.25)", width: "100%", height: "68px", position: "absolute", bottom: "1px", right:"0"}}>
+    <Link to="/profile">  {<BsPersonFill style={{width: "45px", height: "45px", color: "#BDBDBD"}} />} </Link>
+    <Link to="/search"> {<RiSearchFill style={{width: "45px", height: "45px", color: "#BDBDBD"}} />} </Link>
+    <Link to="/favorite"> {<BsFillStarFill style={{width: "45px", height: "45px", color: "#BDBDBD"}} />} </Link>
   </nav>
   );
 

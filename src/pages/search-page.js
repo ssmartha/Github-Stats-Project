@@ -56,7 +56,7 @@ function SearchPage({ query, setQuery }) {
 
   return (
     <div style={{display: "flex", justifyContent: "center", alignItems: "center",}}>
-      <div style={{width: "411px", height: "731px", display: "flex", flexDirection: "column", alignItems: "center"}}>
+      <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
         <form onSubmit={handleSubmit} style={{marginTop: "32px",}}>
           <Input
             name="query"
