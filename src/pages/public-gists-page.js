@@ -1,18 +1,25 @@
 import { useState, useEffect } from "react";
-import { getPublicGistsData } from "../services/github-api"
+import { getPublicGistsData } from "../services/github-api";
+import { useAuth } from "../context/auth-context";
 // import styled from "@emotion/styled";
 
 // const StyledGithubUser = styled("div")``;
 
-export function PublicGistsPage({ query }){
+export function PublicGistsPage() {
+  const { userFound } = useAuth();
   const [gists, setGists] = useState([]);
 
-  useEffect(() => {
-    getPublicGistsData(query)
+  console.log("dentro de public gis")
+
+  useEffect((userFound) => {
+    console.log(userFound);
+    getPublicGistsData(userFound)
     .then((data) => {
-    setGists([...data])
+      setGists([...data])
   })
-  .catch((error) => console.log("errorcito: ", error.message));
+      .catch((error) => console.log("errorcito: ", error.message));
+
+    console.log(gists);
   }, []);
 
 

@@ -12,6 +12,6 @@ export async function removeFavorite(id) {
   });
 }
 
-export async function getFavorites(id) {
+export async function getFavorites() {
   return await collectionClient(`/favorites`);
 }

@@ -26,10 +26,11 @@ import { FollowingsPage } from "./pages/followings-page";
 import { PublicReposPage } from "./pages/public-repos-page";
 import { PublicGistsPage } from "./pages/public-gists-page";
 import ProfilePage from "./pages/profile-page";
+import FavoritePage from "./pages/favorites-page";
+
 
 function AuthenticatedApp() {
-  const [query, setQuery] = useState("");
-  // const { logout } = useAuth();
+
   const Footer = () => (
   <nav style={{display: "flex", flexDirection: "row", alignItems: "center", justifyContent: "space-around", background: "#F2F2F2", boxShadow: "0px -2px 0px rgba(0, 0, 0, 0.25)", width: "100%", height: "68px", position: "absolute", bottom: "1px", right:"0"}}>
     <Link to="/profile">  {<BsPersonFill style={{width: "45px", height: "45px", color: "#BDBDBD"}} />} </Link>
@@ -49,7 +50,7 @@ function AuthenticatedApp() {
   function Search() {
     return (
       <div>
-        <SearchPage query={query} setQuery={setQuery}/>
+        <SearchPage/>
       </div>
     );
   }
@@ -57,16 +58,15 @@ function AuthenticatedApp() {
   function Favorite() {
     return (
       <div>
-        <h1>Favorite Page</h1>
+        <FavoritePage/>
       </div>
     );
   }
 
-  function Followers({ query }) {
-    console.log(query)
+  function Followers() {
     return (
       <div>
-        <FollowersPage query={query} />
+        <FollowersPage />
       </div>
     );
   }
@@ -74,7 +74,7 @@ function AuthenticatedApp() {
   function Followings() {
     return (
       <div>
-        <FollowingsPage query={query} />
+        <FollowingsPage/>
       </div>
     );
   }
@@ -82,15 +82,16 @@ function AuthenticatedApp() {
   function Public_repos() {
     return (
       <div>
-        <PublicReposPage query={query} />
+        <PublicReposPage/>
       </div>
     );
   }
-
   function Public_gists() {
+    console.log("entrando a la pagina de gists");
+
     return (
       <div>
-        <PublicGistsPage query={query} />
+        <PublicGistsPage/>
       </div>
     );
   }
@@ -102,7 +103,7 @@ function AuthenticatedApp() {
           <Route index element={<Search />} />
           <Route path="/favorite" element={<Favorite />} />
           <Route path="/profile" element={<Profile />} />
-          <Route path="/followers" element={<Followers query={query} />} />
+          <Route path="/followers" element={<Followers/>} />
           <Route path="/followings" element={<Followings />} />
           <Route path="/public_repos" element={<Public_repos />} />
           <Route path="/public_gists" element={<Public_gists />} />

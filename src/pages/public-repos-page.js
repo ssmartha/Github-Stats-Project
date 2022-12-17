@@ -1,16 +1,18 @@
 import { useState, useEffect } from "react";
-import { getPublicReposData } from "../services/github-api"
-// import styled from "@emotion/styled";
+import { getPublicReposData } from "../services/github-api";
+import { useAuth } from "../context/auth-context";
 
-// const StyledGithubUser = styled("div")``;
 
-export function PublicReposPage({ query }){
+export function PublicReposPage() {
+  const { userFound } = useAuth();
   const [repos, setRepos] = useState([]);
 
   useEffect(() => {
-    getPublicReposData(query)
+    getPublicReposData(userFound)
     .then((data) => {
-    setRepos([...data])
+      setRepos([...data]);
+
+    console.log(repos);
   })
   .catch((error) => console.log("errorcito: ", error.message));
   }, []);
