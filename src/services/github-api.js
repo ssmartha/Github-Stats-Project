@@ -11,3 +11,9 @@ export function getFollowersData(user) {
     response.json()
   );
 }
+
+export function getFollowingsData(user) {
+  return fetch(BASE_URI + user + "/followings").then((response) =>
+    response.json()
+  );
+}
