@@ -5,7 +5,8 @@ import { getUserData } from "../services/github-api";
 import SearchState from "../components/search-state";
 import { Link } from "react-router-dom";
 import {HiUserGroup} from "react-icons/hi";
-import {RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill} from "react-icons/ri";
+import { RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill } from "react-icons/ri";
+import { BsStar } from "react-icons/bs"
 
 // import PokemonData from "../components/";
 
@@ -40,18 +41,26 @@ function SearchPage({ query, setQuery }) {
       });
   }
 
-  const UserDataConteiner = styled.div`
+  const UserDataContainer = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
   `;
 
-  const UserDataGridConteiner = styled.div`
+  const UserDataGridContainer = styled.div`
     margin-top: 16px;
     display: grid;
     grid-template: repeat(2, 140px) / repeat(2, 140px);
     width: 296px;
     height: 296px;
+  `;
+
+  const UserNameContainer = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 12px;
+    gap: 4.6px;
   `;
 
   return (
@@ -69,46 +78,46 @@ function SearchPage({ query, setQuery }) {
         {status === "pending" && <SearchState message={"Retrieving user..."}/>}
         {status === "idle" && <SearchState message={"Ready to search"}/>}
         {status === "success" && (
-          <UserDataConteiner>
-            <div>
-              <img src={user.avatar_url} alt={user.name} style={{width: "120px", height: "120px", borderRadius: "50%", marginTop: "32px",}}/>
-              <p style={{marginTop: "12px",}}>{user.name}</p>
-            </div>
-            <UserDataGridConteiner>
-
+          <UserDataContainer>
+              <img src={user.avatar_url} alt={user.name} style={{ width: "120px", height: "120px", borderRadius: "50%", marginTop: "32px", }} />
+              <UserNameContainer>
+                <p >{user.name}</p>
+                <BsStar/>
+              </UserNameContainer>
+            <UserDataGridContainer>
 
               <Link to="/followers">
-                <UserDataConteiner>
+                <UserDataContainer>
                   <HiUserGroup style={{width:"50px", height:"50px", color: "#F2994A",}}/>
                   <p>{user.followers}</p>
                   <p>Followers</p>
-                </UserDataConteiner>
+                </UserDataContainer>
               </Link>
 
 
               <Link to="/followings">
-                <UserDataConteiner>
+                <UserDataContainer>
                   <RiUserHeartFill style={{width:"50px", height:"50px", color: "#2D9CDB",}}/>
                   <p>{user.following}</p>
                   <p>Followings</p>
-                </UserDataConteiner>
+                </UserDataContainer>
               </Link>
-              <Link to="/public_repos">  
-                <UserDataConteiner>
+              <Link to="/public_repos">
+                <UserDataContainer>
                   <RiBookMarkFill style={{width:"50px", height:"50px", color: "#219653",}}/>
                   <p>{user.public_repos}</p>
                   <p>public repos</p>
-                </UserDataConteiner>
-              </Link>  
-              <Link to="/public_gists">  
-                <UserDataConteiner>
+                </UserDataContainer>
+              </Link>
+              <Link to="/public_gists">
+                <UserDataContainer>
                   <RiCodeBoxFill style={{width:"50px", height:"50px", color: "#828282",}}/>
                   <p>{user.public_gists}</p>
                   <p>public gists</p>
-                </UserDataConteiner>
-              </Link>  
-            </UserDataGridConteiner>
-          </UserDataConteiner>
+                </UserDataContainer>
+              </Link>
+            </UserDataGridContainer>
+          </UserDataContainer>
         )}
         {status === "error" && <SearchState message={error}/>}
       </div>
