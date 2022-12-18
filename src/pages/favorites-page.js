@@ -5,6 +5,7 @@ import { useAuth } from "../context/auth-context";
 function FavoritePage() {
   const { favorites, setCurrentPage } = useAuth();
   setCurrentPage("FavoritePage");
+  console.log(favorites);
 
   return (
     <div style={{display: "flex", flexDirection: "column", gap: "16px", alignItems: "center"}}>

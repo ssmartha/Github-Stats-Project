@@ -12,15 +12,15 @@ export function getFollowersData(user, num) {
   );
 }
 
-export function getFollowingsData(user) {
+export function getFollowingsData(user,num) {
   console.log(user);
-  return fetch(BASE_URI + user + "/following").then((response) =>
+  return fetch(BASE_URI + user + "/following?per_page=7&page=" + num).then((response) =>
     response.json()
   );
 }
 
-export function getPublicReposData(user) {
-  return fetch(BASE_URI + user + "/repos").then((response) =>
+export function getPublicReposData(user,num) {
+  return fetch(BASE_URI + user + "/repos?per_page=7&page=" + num).then((response) =>
     response.json()
   );
 }
