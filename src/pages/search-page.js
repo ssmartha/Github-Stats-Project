@@ -11,14 +11,9 @@ import { createFavorite, removeFavorite } from "../services/favorites-service";
 import { useAuth } from "../context/auth-context";
 
 function SearchPage() {
-  const { favorites, setCurrentPage, userFound, setUserFound } = useAuth();
+  const { favorites, setCurrentPage, state, setState } = useAuth();
   const [query, setQuery] = useState("");
   const [iconClickedStatus, setIconClickedStatus] = useState("");
-  const [state, setState] = useState({
-    status: "idle", // success - error - pending
-    data: null,
-    error: null,
-  });
 
   setCurrentPage("SearchPage");
   const { status, data: user, error } = state;
@@ -50,16 +45,6 @@ function SearchPage() {
           error: error.message,
         });
       });
-    console.log("antes del setting");
-    settingUser(user);
-    console.log("despues del setting");
-  }
-
-  function settingUser(user) {
-    let dataArr = Object.values(user)
-    let userName = dataArr[0];
-    setUserFound(userName);
-    console.log("setting USEEEEEEEEEEEEEEEEEEEER",userFound);
   }
 
   function userDataToFavorites(user) {

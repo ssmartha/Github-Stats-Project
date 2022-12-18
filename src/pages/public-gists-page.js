@@ -6,12 +6,14 @@ import { useAuth } from "../context/auth-context";
 // const StyledGithubUser = styled("div")``;
 
 export function PublicGistsPage() {
-  const { userFound } = useAuth();
   const [gists, setGists] = useState([]);
+  const { userFound, setUserFound } = useAuth();
+  const { data, ...others } = useAuth().state;
+  const { login, ...rest}= data;
+  setUserFound(login);
 
-  console.log("dentro de public gis")
 
-  useEffect((userFound) => {
+  useEffect(() => {
     console.log(userFound);
     getPublicGistsData(userFound)
     .then((data) => {

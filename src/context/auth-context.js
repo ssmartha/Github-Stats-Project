@@ -10,6 +10,11 @@ function AuthProvider(props) {
   const [userFound, setUserFound] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [currentPage, setCurrentPage] = useState("");
+  const [state, setState] = useState({
+    status: "idle", // success - error - pending
+    data: null,
+    error: null,
+  });
 
   useEffect(() => {
     getUser().then(setUser).catch(console.log);
@@ -41,6 +46,8 @@ function AuthProvider(props) {
     setCurrentPage,
     userFound,
     setUserFound,
+    state,
+    setState,
     login,
     logout,
     signup,

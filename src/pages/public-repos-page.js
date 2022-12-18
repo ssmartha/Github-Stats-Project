@@ -4,8 +4,11 @@ import { useAuth } from "../context/auth-context";
 
 
 export function PublicReposPage() {
-  const { userFound } = useAuth();
   const [repos, setRepos] = useState([]);
+  const { userFound, setUserFound } = useAuth();
+  const { data, ...others } = useAuth().state;
+  const { login, ...rest}= data;
+  setUserFound(login);
 
   useEffect(() => {
     getPublicReposData(userFound)

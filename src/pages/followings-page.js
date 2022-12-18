@@ -3,8 +3,11 @@ import { getFollowingsData } from "../services/github-api";
 import { useAuth } from "../context/auth-context";
 
 export function FollowingsPage() {
-  const { userFound } = useAuth();
   const [followings, setFollowings] = useState([]);
+  const { userFound, setUserFound } = useAuth();
+  const { data, ...others } = useAuth().state;
+  const { login, ...rest}= data;
+  setUserFound(login);
 
   useEffect(() => {
     getFollowingsData(userFound)
