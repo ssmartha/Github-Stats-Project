@@ -6,8 +6,8 @@ export function getUserData(query) {
   );
 }
 
-export function getFollowersData(user) {
-  return fetch(BASE_URI + user + "/followers").then((response) =>
+export function getFollowersData(user, num) {
+  return fetch(BASE_URI + user + "/followers?per_page=7&page=" + num).then((response) =>
     response.json()
   );
 }

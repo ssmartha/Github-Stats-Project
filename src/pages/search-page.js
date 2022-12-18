@@ -4,7 +4,7 @@ import { Input } from "../components/input";
 import { getUserData } from "../services/github-api";
 import SearchState from "../components/search-state";
 import { Link } from "react-router-dom";
-import {HiUserGroup} from "react-icons/hi";
+import { HiUserGroup } from "react-icons/hi";
 import { RiUserHeartFill, RiBookMarkFill, RiCodeBoxFill } from "react-icons/ri";
 import { BsStar, BsStarFill } from "react-icons/bs";
 import { createFavorite, removeFavorite } from "../services/favorites-service";
