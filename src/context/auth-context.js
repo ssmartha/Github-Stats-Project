@@ -10,6 +10,7 @@ function AuthProvider(props) {
   const [userFound, setUserFound] = useState(null);
   const [favorites, setFavorites] = useState([]);
   const [currentPage, setCurrentPage] = useState("");
+  const [iconClickedStatus, setIconClickedStatus] = useState("");
   const [state, setState] = useState({
     status: "idle", // success - error - pending
     data: null,
@@ -48,6 +49,8 @@ function AuthProvider(props) {
     setUserFound,
     state,
     setState,
+    iconClickedStatus,
+    setIconClickedStatus,
     login,
     logout,
     signup,

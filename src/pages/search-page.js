@@ -11,19 +11,12 @@ import { createFavorite, removeFavorite } from "../services/favorites-service";
 import { useAuth } from "../context/auth-context";
 
 function SearchPage() {
-  const { favorites, setCurrentPage, state, setState } = useAuth();
+  const { favorites, setCurrentPage, state, setState, iconClickedStatus, setIconClickedStatus } = useAuth();
   const [query, setQuery] = useState("");
-  const [iconClickedStatus, setIconClickedStatus] = useState("");
+  // const [iconClickedStatus, setIconClickedStatus] = useState("");
 
   setCurrentPage("SearchPage");
   const { status, data: user, error } = state;
-
-  function findIdFromUserInFavorites(favorites, user) {
-    const userInFavorites = favorites.filter((fav) => fav.username === user.login);
-    const idFromUserInFavorites = !userInFavorites[0] ? "Not found" : userInFavorites[0]["id"];
-    return idFromUserInFavorites
-  }
-
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -35,8 +28,6 @@ function SearchPage() {
         setState({ status: "success", data: data, error: null });
         console.log((findIdFromUserInFavorites(favorites, data) === "Not found"));
         findIdFromUserInFavorites(favorites, data) === "Not found" ? setIconClickedStatus(false) : setIconClickedStatus(true)
-        console.log("data",data);
-        console.log("state",state);
       })
       .catch((error) => {
         setState({
@@ -45,6 +36,12 @@ function SearchPage() {
           error: error.message,
         });
       });
+  }
+
+  function findIdFromUserInFavorites(favorites, user) {
+    const userInFavorites = favorites.filter((fav) => fav.username === user.login);
+    const idFromUserInFavorites = !userInFavorites[0] ? "Not found" : userInFavorites[0]["id"];
+    return idFromUserInFavorites
   }
 
   function userDataToFavorites(user) {
@@ -57,7 +54,10 @@ function SearchPage() {
   }
 
   function addToFavorites(userData) {
+    console.log("entrando a add to favorites");
+    console.log(userData);
     createFavorite(userData).then(console.log).catch(console.log);
+    console.log("saliendo add to favorites");
   }
 
   function deleteFromFavorites(userId) {
@@ -70,7 +70,7 @@ function SearchPage() {
     setIconClickedStatus(!iconClickedStatus);
     let userId = findIdFromUserInFavorites(favorites, user);
     let userData = userDataToFavorites(user);
-    iconClickedStatus ? addToFavorites(userData) : deleteFromFavorites(userId);
+    iconClickedStatus ? deleteFromFavorites(userId) : addToFavorites(userData);
   }
 
   const UserDataContainer = styled.div`
