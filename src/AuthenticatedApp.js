@@ -86,15 +86,6 @@ function AuthenticatedApp() {
       </div>
     );
   }
-  function Public_gists() {
-    console.log("entrando a la pagina de gists");
-
-    return (
-      <div>
-        <PublicGistsPage/>
-      </div>
-    );
-  }
 
   return (
     <div>
@@ -106,7 +97,6 @@ function AuthenticatedApp() {
           <Route path="/followers" element={<Followers/>} />
           <Route path="/followings" element={<Followings />} />
           <Route path="/public_repos" element={<Public_repos />} />
-          <Route path="/public_gists" element={<Public_gists />} />
           <Route path="*" element={<Search />} />
         </Routes>
         <Footer />

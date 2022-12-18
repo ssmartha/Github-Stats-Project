@@ -140,13 +140,11 @@ function SearchPage() {
                   <p>public repos</p>
                 </UserDataContainer>
               </Link>
-              <Link to="/public_gists">
-                <UserDataContainer>
-                  <RiCodeBoxFill style={{width:"50px", height:"50px", color: "#828282",}}/>
-                  <p>{user.public_gists}</p>
-                  <p>public gists</p>
-                </UserDataContainer>
-              </Link>
+              <UserDataContainer>
+                <RiCodeBoxFill style={{width:"50px", height:"50px", color: "#828282",}}/>
+                <p>{user.public_gists}</p>
+                <p>public gists</p>
+              </UserDataContainer>
             </UserDataGridContainer>
           </UserDataContainer>
         )}
